@@ -29,4 +29,6 @@
 # Place files for /public in /client/public
 /public
 
+# env
 secrets_backup.yml
+.env
