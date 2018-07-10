@@ -14,8 +14,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {};
-    this.getDrinks = this.getDrinks.bind(this);
-    this.getDrink = this.getDrink.bind(this);
   }
 
   componentDidMount() {
@@ -29,7 +27,7 @@ class App extends Component {
       .catch(error => console.log(error));
   }
 
-  getDrinks() {
+  getDrinks = () => {
     this.fetch("/api/drinks").then(drinks => {
       if (drinks.length) {
         this.setState({ drinks });
@@ -38,13 +36,11 @@ class App extends Component {
         this.setState({ drinks: [] });
       }
     });
-  }
+  };
 
-  getDrink(id) {
-    this.fetch(`/api/drinks/${id}`).then(drink =>
-      this.setState({ drink })
-    );
-  }
+  getDrink = id => {
+    this.fetch(`/api/drinks/${id}`).then(drink => this.setState({ drink }));
+  };
 
   render() {
     let { drinks, drink } = this.state;
@@ -58,7 +54,6 @@ class App extends Component {
         {drinks && drinks.length ? (
           <Button.Group color="teal" fluid widths={drinks.length}>
             {Object.keys(drinks).map(key => {
-              console.log(key);
               return (
                 <Button
                   active={drink && drink.id === drinks[key].id}
@@ -100,6 +95,9 @@ class App extends Component {
         <Dimmer active inverted>
           <Loader content="Loading" />
         </Dimmer>
+        {/* {Object.keys(drink).map(key => {
+          return console.log(key);
+        })} */}
       </Container>
     );
   }
